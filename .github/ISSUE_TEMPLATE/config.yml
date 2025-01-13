@@ -1,0 +1,22 @@
+blank_issues_enabled: false
+contact_links:
+  - ""
+templates:
+  - name: "Report Typos and Grammar"
+    description: "Report typos, spelling mistakes, or grammar problems."
+    filename: "typos-and-grammar.md"
+  - name: "Report Content Issues"
+    description: "Report issues related to documentation content, including missing or incorrect information and unclear, confusing, or misleading writing."
+    filename: "content-issues.md"
+  - name: "Suggest Improvements"
+    description: "Suggest ways to improve or add to our content."
+    filename: "improvement-suggestions.md"
+  - name: "Report Technical Issues"
+    description: "Report technical issues such as broken links, missing media, outdated information, or issues with code examples."
+    filename: "technical-issues.md"
+  - name: "Report Accessibility Issues"
+    description: "Report accessibility issues such as color contrast, font readability, missing image descriptions, or screen reader problems."
+    filename: "accessibility-issues.md"
+  - name: "Provide Other Feedback"
+    description: "Share anything else, including positive feedback or general suggestions for improvement."
+    filename: "other-feedback.md"
