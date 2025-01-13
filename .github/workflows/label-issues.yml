@@ -1,0 +1,55 @@
+name: Apply Labels Based on Issue Template
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  label-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Apply labels based on issue template and contributor information
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const issueTitle = context.payload.issue.title.toLowerCase();
+          const issueBody = context.payload.issue.body.toLowerCase();
+          
+          let labels = [];
+
+          // Apply labels based on the template selected in the issue body
+          if (issueBody.includes('typos and grammar')) {
+            labels.push('typo-or-grammar');
+          } else if (issueBody.includes('content issues')) {
+            labels.push('content-issue');
+          } else if (issueBody.includes('improvement suggestions')) {
+            labels.push('info-improvement');
+          } else if (issueBody.includes('technical issues')) {
+            labels.push('technical-issue');
+          } else if (issueBody.includes('accessibility issues')) {
+            labels.push('accessibility-issue');
+          } else if (issueBody.includes('other feedback')) {
+            labels.push('feedback');
+          }
+
+          // Apply labels based on contributor information
+          if (issueBody.includes('i am a community contributor')) {
+            labels.push('community-contribution');
+          } else if (issueBody.includes('i am a temporal employee')) {
+            labels.push('cross-team');
+          }
+
+          // Apply the labels to the issue
+          if (labels.length > 0) {
+            await github.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              labels: labels,
+            });
+          }
